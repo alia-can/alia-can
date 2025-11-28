@@ -70,6 +70,7 @@ public:
      * @return Number of backups deleted
      */
     int cleanupOldBackups(int keepCount = 10);
+    int cleanupAndCompressOldBackups(int maxBackups);
 
     /**
      * @brief Gets the last error message

@@ -83,7 +83,7 @@ void MainWindow::initializeUI() {
     commandLayout->addWidget(commandInput);
     inputLayout->addLayout(commandLayout);
 
-    // 🔥 Command Status Label (FIX)
+    // ðŸ”¥ Command Status Label (FIX)
     commandStatus = new QLabel(this);
     commandStatus->setText("");
     commandStatus->setStyleSheet("color: gray; font-size: 12px;");
@@ -270,10 +270,10 @@ void MainWindow::onCommandChanged(const QString& text) {
     bool valid = AliasManager::validateCommand(text.toStdString());
 
     if (!valid) {
-        commandStatus->setText("❌ Invalid command");
+        commandStatus->setText("âŒ Invalid command");
         commandStatus->setStyleSheet("color: red;");
     } else {
-        commandStatus->setText("✔ Valid command");
+        commandStatus->setText("âœ” Valid command");
         commandStatus->setStyleSheet("color: green;");
     }
 }

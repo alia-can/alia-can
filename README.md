@@ -110,7 +110,7 @@ MIT License - See LICENSE file for details
 
 
 ## Support
-- 📧 Email: xzray@proton.me
+- 📧 Email:  ardiansyahfahri024@gmail.com
 - 🐛 Issues: [GitHub Issues](https://github.com/alia-can/alia-can/issues)
 - 💬 Discussions: [GitHub Discussions](https://github.com/alia-can/alia-can/discussions)
 

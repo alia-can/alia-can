@@ -586,24 +586,20 @@ void MainWindow::animateButton(QPushButton* button, bool isRefresh) {
     QPropertyAnimation* animation = new QPropertyAnimation(button, "geometry");
     animation->setDuration(200);
     QRect originalGeometry = button->geometry();
-    QRect pressedGeometry = originalGeometry;
-    pressedGeometry.setWidth(originalGeometry.width() - 4);
-    pressedGeometry.setHeight(originalGeometry.height() - 2);
-    pressedGeometry.moveTo(originalGeometry.x() + 2, originalGeometry.y() + 1);
+    QRect pressedGeometry = originalGeometry.adjusted(2, 1, -4, -2);
     animation->setKeyValueAt(0, originalGeometry);
     animation->setKeyValueAt(0.5, pressedGeometry);
     animation->setKeyValueAt(1, originalGeometry);
-    if (isRefresh) {
-        QGraphicsRotation* rotation = new QGraphicsRotation(button);
-        rotation->setAxis(Qt::ZAxis);
-        button->setGraphicsEffect(rotation);
-        QPropertyAnimation* rotateAnim = new QPropertyAnimation(rotation, "angle");
-        rotateAnim->setDuration(500);
-        rotateAnim->setStartValue(0);
-        rotateAnim->setEndValue(360);
-        rotateAnim->start(QPropertyAnimation::DeleteWhenStopped);
-    }
     animation->start(QPropertyAnimation::DeleteWhenStopped);
+    if (isRefresh) {
+        QGraphicsOpacityEffect* effect = new QGraphicsOpacityEffect(button);
+        button->setGraphicsEffect(effect);
+        QPropertyAnimation* anim = new QPropertyAnimation(effect, "opacity");
+        anim->setDuration(500);
+        anim->setStartValue(0.5);
+        anim->setEndValue(1.0);
+        anim->start(QPropertyAnimation::DeleteWhenStopped);
+    }
 }
 
 void MainWindow::startupAnimation() {
@@ -650,6 +646,6 @@ void MainWindow::animateWidgetGroup(QWidget* widget, int delay) {
     slideAnim->setEasingCurve(QEasingCurve::OutCubic);
     group->addAnimation(fadeAnim);
     group->addAnimation(slideAnim);
-    QTimer::singleShot(delay * 100, group, &QParallelAnimationGroup::start);
+    QTimer::singleShot(delay * 100, [group]() { group->start(); });
     group->start(QPropertyAnimation::DeleteWhenStopped);
 }

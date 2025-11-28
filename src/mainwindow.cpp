@@ -74,22 +74,6 @@ void MainWindow::initializeUI() {
 
     mainLayout->addLayout(headerLayout);
 
-    // ===== SEARCH SECTION =====
-    QVBoxLayout* searchLayout = new QVBoxLayout();
-    searchLayout->setSpacing(8);
-
-    QLabel* searchLabel = new QLabel("🔍 Search Aliases", this);
-    searchLabel->setStyleSheet("font-weight: 600; font-size: 12px; letter-spacing: 0.3px;");
-    searchLayout->addWidget(searchLabel);
-
-    searchInput = new QLineEdit(this);
-    searchInput->setPlaceholderText("Type alias name or command to filter...");
-    searchInput->setMaximumHeight(38);
-    searchInput->setCursor(Qt::IBeamCursor);
-    searchLayout->addWidget(searchInput);
-
-    mainLayout->addLayout(searchLayout);
-
     // ===== INPUT SECTION =====
     QGroupBox* inputGroup = new QGroupBox("➕ Add New Alias", this);
     inputGroup->setCursor(Qt::ArrowCursor);
@@ -137,6 +121,22 @@ void MainWindow::initializeUI() {
     inputLayout->addLayout(buttonLayout);
 
     mainLayout->addWidget(inputGroup);
+
+    // ===== SEARCH SECTION =====
+    QVBoxLayout* searchLayout = new QVBoxLayout();
+    searchLayout->setSpacing(8);
+
+    QLabel* searchLabel = new QLabel("🔍 Search Aliases", this);
+    searchLabel->setStyleSheet("font-weight: 600; font-size: 12px; letter-spacing: 0.3px;");
+    searchLayout->addWidget(searchLabel);
+
+    searchInput = new QLineEdit(this);
+    searchInput->setPlaceholderText("Type alias name or command to filter...");
+    searchInput->setMaximumHeight(38);
+    searchInput->setCursor(Qt::IBeamCursor);
+    searchLayout->addWidget(searchInput);
+
+    mainLayout->addLayout(searchLayout);
 
     // ===== ALIASES LIST SECTION =====
     QGroupBox* listGroup = new QGroupBox("📋 Current Aliases", this);

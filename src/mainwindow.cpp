@@ -246,7 +246,7 @@ void MainWindow::toggleTheme() {
     opacityAnim->setDuration(300);
     opacityAnim->setStartValue(0.7);
     opacityAnim->setEndValue(1.0);
-    opacityAnim->start(QAbstractAnimation::DeleteWhenDone);
+    opacityAnim->start(QAbstractAnimation::DeleteWhenStopped);
 }
 
 void MainWindow::onAddAlias() {

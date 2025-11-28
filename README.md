@@ -7,6 +7,8 @@
 
 A powerful, user-friendly shell alias manager for Linux with automatic backups, cross-shell support, and a modern Qt6 GUI. Manage your bash, zsh, and fish aliases effortlessly!
 
+![Preview](preview.png)
+
 ## Features
 ✨ **Core Features**
 - 🔍 **Auto Shell Detection** - Detects bash, zsh, or fish automatically

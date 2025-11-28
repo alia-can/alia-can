@@ -413,6 +413,7 @@ void MainWindow::applyStylesheet() {
             border-radius: 4px;
             padding: 8px 16px;
             font-weight: bold;
+            cursor: pointer;
         }
         QPushButton:hover {
             background-color: #1976D2;

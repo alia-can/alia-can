@@ -1,112 +1,36 @@
 cmake_minimum_required(VERSION 3.28)
-
 set(CMAKE_C_COMPILER clang)
 set(CMAKE_CXX_COMPILER clang++)
-
-project(alia-can
-    VERSION 0.0.1
-    DESCRIPTION "AliaCan - Shell Alias Manager with Auto-Backup"
-    LANGUAGES CXX
-)
-
+project(alia-can VERSION 0.0.1 DESCRIPTION "AliaCan - Shell Alias Manager with Auto-Backup" LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-
-# Global compile warnings
 add_compile_options(-Wall -Wextra -Wpedantic)
-
-# Qt auto-settings
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -mtune=native -O3 -pipe -fno-plt -fexceptions -Wp,-D_FORTIFY_SOURCE=3 -fstack-clash-protection -fcf-protection -fno-omit-frame-pointer -fstack-protector -flto -fomit-frame-pointer -Wstrict-aliasing -ffunction-sections -fdata-sections -fPIC -fvisibility=hidden -ftree-vectorize -finline-functions -fstrict-aliasing -fcommon -Wp,-D_GLIBCXX_ASSERTIONS -std=c++17")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-O3 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,-z,pack-relative-relocs -Wl,--gc-sections -Wl,--icf=all -fuse-ld=lld")
+set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-O3 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,-z,pack-relative-relocs -Wl,--gc-sections -Wl,--icf=all -fuse-ld=lld")
+set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,-O3 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,-z,pack-relative-relocs -Wl,--gc-sections -Wl,--icf=all -fuse-ld=lld")
+add_compile_options(-flto)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
-
-# Find Qt6
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
-
-# ----------------------------------------------------------------------
-# APP SOURCES
-# ----------------------------------------------------------------------
-
-set(APP_SOURCES
-    src/main.cpp
-    src/mainwindow.cpp
-    src/shelldetector.cpp
-    src/aliasmanager.cpp
-    src/configfilehandler.cpp
-    src/backupmanager.cpp
-)
-
-set(APP_HEADERS
-    src/mainwindow.hpp
-    src/shelldetector.hpp
-    src/aliasmanager.hpp
-    src/configfilehandler.hpp
-    src/backupmanager.hpp
-)
-
-add_executable(alia-can
-    ${APP_SOURCES}
-    ${APP_HEADERS}
-)
-
-target_link_libraries(alia-can
-    Qt6::Core
-    Qt6::Gui
-    Qt6::Widgets
-)
-
-target_include_directories(alia-can PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-)
-
-# ----------------------------------------------------------------------
-# TEST TARGET
-# ----------------------------------------------------------------------
-
+set(APP_SOURCES src/main.cpp src/mainwindow.cpp src/shelldetector.cpp src/aliasmanager.cpp src/configfilehandler.cpp src/backupmanager.cpp)
+set(APP_HEADERS src/mainwindow.hpp src/shelldetector.hpp src/aliasmanager.hpp src/configfilehandler.hpp src/backupmanager.hpp)
+add_executable(alia-can ${APP_SOURCES} ${APP_HEADERS})
+target_link_libraries(alia-can Qt6::Core Qt6::Gui Qt6::Widgets)
+target_include_directories(alia-can PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 enable_testing()
-
-set(TEST_SOURCES
-    tests/main.cpp             # Single test entry point
-    tests/test_shelldetector.cpp
-    tests/test_aliasmanager.cpp
-    tests/test_confighandler.cpp
-
-    # Core source logic reused by tests
-    src/shelldetector.cpp
-    src/aliasmanager.cpp
-    src/configfilehandler.cpp
-    src/backupmanager.cpp
-)
-
+set(TEST_SOURCES tests/main.cpp tests/test_shelldetector.cpp tests/test_aliasmanager.cpp tests/test_confighandler.cpp src/shelldetector.cpp src/aliasmanager.cpp src/configfilehandler.cpp src/backupmanager.cpp)
 add_executable(alia-can-tests ${TEST_SOURCES})
-
-target_include_directories(alia-can-tests PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-)
-
-# No Qt linked for tests unless you need GUI testing
+target_include_directories(alia-can-tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 add_test(NAME AliaCan-Tests COMMAND alia-can-tests)
 
-# ----------------------------------------------------------------------
-# INSTALLATION
-# ----------------------------------------------------------------------
-
 install(TARGETS alia-can DESTINATION /usr/local/bin)
-
 if(NOT TARGET uninstall)
-    configure_file(
-        "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
-        "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
-        IMMEDIATE @ONLY)
-    add_custom_target(uninstall
-        COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
+    configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake" IMMEDIATE @ONLY)
+    add_custom_target(uninstall COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 endif()
-
-# ----------------------------------------------------------------------
-# BUILD INFO OUTPUT
-# ----------------------------------------------------------------------
-
 message(STATUS "========================================")
 message(STATUS "AliaCan Configuration")
 message(STATUS "========================================")

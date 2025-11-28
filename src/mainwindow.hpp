@@ -6,7 +6,6 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QIcon>
-#include <QGraphicsRotation>
 #include <memory>
 #include "shelldetector.hpp"
 #include "aliasmanager.hpp"
@@ -29,9 +28,6 @@ private slots:
     void onCommandChanged(const QString& text);
     void onShowBackups();
     void onRestoreBackup();
-    void onSearchTextChanged(const QString& text);
-    void onThemeToggled(bool checked);
-    void onTransparencyToggled(bool checked);
 
 private:
     std::unique_ptr<ConfigFileHandler> configHandler;
@@ -51,14 +47,6 @@ private:
     QLabel* statusLabel;
     std::vector<Alias> currentAliases;
     bool isModifying = false;
-    bool isDarkTheme = false;
-    bool isTransparentEnabled = false;
-    QPushButton* themeToggle = nullptr;
-    QPushButton* transparencyToggle = nullptr;
-    QLineEdit* searchInput = nullptr;
-    void startupAnimation();
-    void animateButton(QPushButton* button, bool isRefresh = false);
-    void animateWidgetGroup(QWidget* widget, int delay);
     void initializeUI();
     void setupConnections();
     void initializeShellDetection();

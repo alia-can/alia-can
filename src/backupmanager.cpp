@@ -150,14 +150,16 @@ int BackupManager::cleanupOldBackups(int keepCount) {
               [](const auto& a, const auto& b) { return a.second > b.second; });
 
     int deleted = 0;
-    for (size_t i = keepCount; i < backupsWithTime.size(); ++i) {
-        try {
-            fs::remove(backupsWithTime[i].first);
-            deleted++;
-        } catch (const std::exception&) {
-            continue;
-        }
+    size_t keep = static_cast<size_t>(keepCount);
+        for (size_t i = keep; i < backupsWithTime.size(); ++i) {
+            try {
+                fs::remove(backupsWithTime[i].first);
+                deleted++;
+                } catch (const std::exception&) {
+        continue;
     }
+}
+
 
     return deleted;
 }

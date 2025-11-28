@@ -1,12 +1,20 @@
 #pragma once
 
 #include <QMainWindow>
-#include <QListWidget>
-#include <QLineEdit>
+#include <QWidget>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QPushButton>
+#include <QLineEdit>
+#include <QListWidget>
 #include <QLabel>
-#include <QIcon>
+#include <QGroupBox>
+#include <QComboBox>
 #include <memory>
+#include <vector>
+#include <QPropertyAnimation>
+#include <QParallelAnimationGroup>
+
 #include "shelldetector.hpp"
 #include "aliasmanager.hpp"
 #include "configfilehandler.hpp"
@@ -28,6 +36,8 @@ private slots:
     void onCommandChanged(const QString& text);
     void onShowBackups();
     void onRestoreBackup();
+    void toggleTheme();
+    void onSearchTextChanged(const QString& text);
 
 private:
     std::unique_ptr<ConfigFileHandler> configHandler;
@@ -43,20 +53,27 @@ private:
     QPushButton* refreshButton;
     QPushButton* backupButton;
     QPushButton* restoreButton;
+    QPushButton* themeToggle;
     QListWidget* aliasList;
     QLabel* statusLabel;
+    QLineEdit* searchInput;
     std::vector<Alias> currentAliases;
     bool isModifying = false;
+    bool isDarkTheme = false;
     void initializeUI();
     void setupConnections();
     void initializeShellDetection();
     void loadAliasesFromFile();
     void updateShellInfo();
     void updateAliasList();
+    void filterAliasList(const QString& searchText);
     void showError(const QString& title, const QString& message);
     void showSuccess(const QString& message);
     bool validateInput(QString& aliasName, QString& command);
     void clearInputFields();
     void applyStylesheet();
+    QString getLightTheme() const;
+    QString getDarkTheme() const;
     QIcon createAppIcon();
+    void setupAnimations();
 };

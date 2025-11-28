@@ -59,11 +59,12 @@ A powerful, user-friendly shell alias manager for Linux with automatic backups, 
 
 1. **Clone or download the repository**
 ```bash
-git clone https://github.com/yourusername/alia-can.git
+git clone https://github.com/alia-can/alia-can.git
 cd alia-can
 ```
 
 2. **Install dependencies**
+   
 **Arch Linux:**
 ```bash
 sudo pacman -S base-devel cmake qt6-base clang
@@ -390,9 +391,9 @@ MIT License - See LICENSE file for details
 
 
 ## Support
-- 📧 Email: support@alia-can.dev
-- 🐛 Issues: [GitHub Issues](https://github.com/yourusername/alia-can/issues)
-- 💬 Discussions: [GitHub Discussions](https://github.com/yourusername/alia-can/discussions)
+- 📧 Email: ardiansyahfahri024@gmail.com
+- 🐛 Issues: [GitHub Issues](https://github.com/alia-can/alia-can/issues)
+- 💬 Discussions: [GitHub Discussions](https://github.com/alia-can/alia-can/discussions)
 
 
 

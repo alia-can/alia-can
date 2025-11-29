@@ -8,139 +8,75 @@
 #include <vector>
 #include <unistd.h>
 #include <pwd.h>
+#include <string_view>
 
 namespace fs = std::filesystem;
-
 ShellDetector::Shell ShellDetector::detectShell() {
-    // Phase 1: Check SHELL environment variable
-    Shell shellFromEnv = detectFromEnvironment();
-    if (shellFromEnv != Shell::UNKNOWN) {
-        return shellFromEnv;
-    }
-
-    // Phase 2: Check config files existence
-    Shell shellFromConfig = detectFromConfigFiles();
-    if (shellFromConfig != Shell::UNKNOWN) {
-        return shellFromConfig;
-    }
-
-    // Phase 3: Check parent process
-    std::string parent = getParentProcess();
-    if (!parent.empty()) {
+    if (auto shell = detectFromEnvironment(); shell != Shell::UNKNOWN) return shell;
+    if (auto shell = detectFromConfigFiles(); shell != Shell::UNKNOWN) return shell;
+    if (std::string parent = getParentProcess(); !parent.empty()) {
         if (parent.find("zsh") != std::string::npos) return Shell::ZSH;
         if (parent.find("bash") != std::string::npos) return Shell::BASH;
         if (parent.find("fish") != std::string::npos) return Shell::FISH;
     }
-
-    // Fallback to BASH
     return Shell::BASH;
 }
-
 ShellDetector::Shell ShellDetector::detectFromEnvironment() {
-    const char* shellEnv = std::getenv("SHELL");
-    if (shellEnv == nullptr) {
-        return Shell::UNKNOWN;
+    if (const char* shellEnv = std::getenv("SHELL"); shellEnv != nullptr) {
+        std::string_view shellPath(shellEnv);
+        if (shellPath.find("zsh") != std::string_view::npos) return Shell::ZSH;
+        if (shellPath.find("bash") != std::string_view::npos) return Shell::BASH;
+        if (shellPath.find("fish") != std::string_view::npos) return Shell::FISH;
     }
-
-    std::string shellPath(shellEnv);
-    
-    if (shellPath.find("zsh") != std::string::npos) return Shell::ZSH;
-    if (shellPath.find("bash") != std::string::npos) return Shell::BASH;
-    if (shellPath.find("fish") != std::string::npos) return Shell::FISH;
-
     return Shell::UNKNOWN;
 }
-
 ShellDetector::Shell ShellDetector::detectFromConfigFiles() {
     std::string home = expandHome("~");
-    
-    // Check in priority order
-    std::vector<std::pair<Shell, std::string>> configs = {
-        {Shell::ZSH, home + "/" + ZSHRC},
-        {Shell::BASH, home + "/" + BASHRC},
-        {Shell::FISH, home + "/" + FISH_CONFIG}
+    constexpr std::pair<Shell, std::string_view> configs[] = {
+        {Shell::ZSH, ZSHRC},
+        {Shell::BASH, BASHRC},
+        {Shell::FISH, FISH_CONFIG}
     };
-
-    for (const auto& [shell, configPath] : configs) {
-        if (fs::exists(configPath)) {
+    for (const auto& [shell, config] : configs) {
+        if (fs::exists(home + "/" + std::string(config)))
             return shell;
-        }
     }
-
     return Shell::UNKNOWN;
 }
-
 std::string ShellDetector::getParentProcess() {
-    pid_t ppid = getppid();
-    std::string procPath = "/proc/" + std::to_string(ppid) + "/comm";
-    
-    std::ifstream procFile(procPath);
-    if (procFile.is_open()) {
+    std::string procPath = "/proc/" + std::to_string(getppid()) + "/comm";
+    if (std::ifstream procFile(procPath); procFile.is_open()) {
         std::string processName;
-        std::getline(procFile, processName);
-        
-        // Remove newline if present
-        if (!processName.empty() && processName.back() == '\n') {
-            processName.pop_back();
-        }
-        
+        if (std::getline(procFile, processName) && !processName.empty() && processName.back() == '\n') processName.pop_back();
         return processName;
     }
-
     return "";
 }
-
 std::string ShellDetector::expandHome(const std::string& path) {
-    if (path.empty() || path[0] != '~') {
-        return path;
-    }
-
+    if (path.empty() || path[0] != '~') return path;
     const char* homeDir = std::getenv("HOME");
     if (homeDir == nullptr) {
-        // Fallback to pwd
-        struct passwd* pw = getpwuid(getuid());
-        if (pw == nullptr) {
-            return path;
-        }
-        homeDir = pw->pw_dir;
+        if (struct passwd* pw = getpwuid(getuid()); pw != nullptr) homeDir = pw->pw_dir;
+        else return path;
     }
-
-    std::string expanded(homeDir);
-    if (path.length() > 1) {
-        expanded += path.substr(1);
-    }
-
-    return expanded;
+    return path.length() > 1 ? std::string(homeDir) + path.substr(1) : homeDir;
 }
-
 std::string ShellDetector::getConfigFilePath(Shell shell) {
     std::string home = expandHome("~");
-
     switch (shell) {
-        case Shell::BASH:
-            return home + "/" + BASHRC;
-        case Shell::ZSH:
-            return home + "/" + ZSHRC;
-        case Shell::FISH:
-            return home + "/" + FISH_CONFIG;
-        case Shell::UNKNOWN:
-            return "";
+        case Shell::BASH: return home + "/" + std::string(BASHRC);
+        case Shell::ZSH:  return home + "/" + std::string(ZSHRC);
+        case Shell::FISH: return home + "/" + std::string(FISH_CONFIG);
+        case Shell::UNKNOWN: return "";
     }
-
     return "";
 }
-
 std::string ShellDetector::getShellName(Shell shell) {
     switch (shell) {
-        case Shell::BASH:
-            return "BASH";
-        case Shell::ZSH:
-            return "ZSH";
-        case Shell::FISH:
-            return "FISH";
-        case Shell::UNKNOWN:
-            return "UNKNOWN";
+        case Shell::BASH: return "BASH";
+        case Shell::ZSH: return "ZSH";
+        case Shell::FISH: return "FISH";
+        case Shell::UNKNOWN: return "UNKNOWN";
     }
-
     return "UNKNOWN";
 }

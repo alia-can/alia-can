@@ -1,24 +1,17 @@
 #pragma once
 
 #include <QMainWindow>
-#include <QWidget>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QPushButton>
-#include <QLineEdit>
-#include <QListWidget>
-#include <QLabel>
-#include <QGroupBox>
-#include <QComboBox>
 #include <memory>
 #include <vector>
-#include <QPropertyAnimation>
-#include <QParallelAnimationGroup>
-
 #include "shelldetector.hpp"
 #include "aliasmanager.hpp"
 #include "configfilehandler.hpp"
 #include "backupmanager.hpp"
+
+class QLabel;
+class QLineEdit;
+class QListWidget;
+class QPushButton;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -75,5 +68,4 @@ private:
     QString getLightTheme() const;
     QString getDarkTheme() const;
     QIcon createAppIcon();
-    void setupAnimations();
 };

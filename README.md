@@ -1,4 +1,4 @@
-# AliaCan - Shell Alias Manager with Auto-Backup (BETA VERSION)
+# AliaCan - Shell Alias Manager with Auto-Backup
 
 ![Version](https://img.shields.io/badge/version-0.0.1-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
@@ -53,6 +53,75 @@ A powerful, user-friendly shell alias manager for Linux with automatic backups, 
 - **openSUSE** Leap 15.5+
 - **Alpine Linux** 3.17+
 - All other POSIX-compliant Linux distributions
+
+
+
+## Installation
+
+### From Source (Development)
+
+1. **Clone or download the repository**
+
+```bash
+git clone https://github.com/alia-can/alia-can.git
+cd alia-can
+```
+
+2. **Install dependencies**
+   
+**Arch Linux:**
+
+```bash
+sudo pacman -S base-devel cmake qt6-base clang
+```
+
+**Fedora:**
+
+```bash
+sudo dnf install gcc-c++ cmake qt6-qtbase-devel clang
+```
+
+**Ubuntu/Debian:**
+
+```bash
+sudo apt install build-essential cmake qt6-base-dev clang-14
+```
+
+3. **Build the project**
+
+```bash
+mkdir build
+cd build
+cmake ..
+cmake --build . -j$(nproc)
+```
+
+4. **Install binary**
+
+```bash
+sudo cmake --install . --config Release
+# Or manually:
+sudo install -Dm755 alia-can /usr/local/bin/alia-can
+```
+
+5. **Launch Application**
+
+```bash
+alia-can
+```
+
+
+## Uninstallation
+
+### From Source
+
+```bash
+cd build
+sudo cmake --build . --target uninstall
+# Or manually:
+sudo rm /usr/local/bin/alia-can
+```
+
 
 
 ### GUI Usage

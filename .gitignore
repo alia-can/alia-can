@@ -1,0 +1,369 @@
+# ============================================================================
+# Build Artifacts & CMake
+# ============================================================================
+build/
+cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+CTestTestfile.cmake
+DartConfiguration.tcl
+Testing/
+
+# Compiled binaries & libraries
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.out
+
+# Qt MOC (Meta-Object Compiler) generated files
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+.ui/*
+
+# Link Time Optimization
+*.lto.o
+
+# ============================================================================
+# IDE & Editor Configuration
+# ============================================================================
+.vscode/
+.idea/
+*.iml
+*.pro.user
+*.pro.user.*
+.qtCreator*
+.DS_Store
+.AppleDouble
+.LSOverride
+*.sublime-workspace
+*.sublime-project
+.vim/
+.emacs*
+*~
+.swp
+*.swo
+*.swn
+
+# Clion
+.clion_remote_run_history_file
+
+# Xcode
+*.pbxproj
+*.xcodeproj/
+*.xcworkspace/
+DerivedData/
+*.hmap
+
+# Visual Studio
+.vs/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+
+# ============================================================================
+# Dependency Management
+# ============================================================================
+# Conan
+conaninfo.txt
+conanbuildinfo.cmake
+conanbuildinfo.txt
+conan.lock
+
+# Vcpkg
+vcpkg_installed/
+vcpkg-configuration.json
+
+# Hunter
+HunterGate.cmake
+
+# Package managers
+node_modules/
+.npm/
+
+# ============================================================================
+# System & OS Files
+# ============================================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+.vscode-server
+
+# ============================================================================
+# Backup & Temporary Files
+# ============================================================================
+*.bak
+*.backup
+*.tmp
+*.temp
+*.old
+*.orig
+*.rej
+*.swp
+*.*~
+*.autosave
+*.cache
+*.tmp.*
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+
+# ============================================================================
+# Test & Coverage Reports
+# ============================================================================
+test-results/
+junit-results/
+coverage/
+*.gcda
+*.gcno
+*.gcov
+gcov-report/
+*_test
+*Test.cpp
+test_output.txt
+ctest_results.xml
+Testing/
+alia-can-tests
+
+# Code coverage tools
+.codecov/
+coverage.txt
+lcov.info
+coverage.html
+GPATH
+GRTAGS
+GSYMS
+GTAGS
+
+# ============================================================================
+# Logs & Output
+# ============================================================================
+*.log
+logs/
+*.out
+compile_output.txt
+error.log
+warning.log
+CMakeOutput.log
+CMakeError.log
+
+# ============================================================================
+# Debugging & Profiling
+# ============================================================================
+*.dSYM/
+*.su
+*.gch
+*.pch
+*.stackdump
+core
+core.*
+*.core
+vgcore.*
+
+# Clang Analysis
+*.plist
+scan-build-*/
+
+# ============================================================================
+# Package & Distribution Files
+# ============================================================================
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.zip
+*.rar
+*.7z
+*.deb
+*.rpm
+*.apk
+dist/
+package-lock.json
+
+# Qt Resource Compilation
+*.qmlc
+*.qml.orig
+*.moc.cpp
+
+# ============================================================================
+# Installation & Runtime
+# ============================================================================
+install_manifest.txt
+.installed.cfg
+*.egg
+*.egg-info/
+dist/
+
+# ============================================================================
+# Shell Backup Files (AliaCan specific)
+# ============================================================================
+.shellbackup/
+*.bashrc.bak*
+*.zshrc.bak*
+config.fish.bak*
+
+# ============================================================================
+# Python Related (if used for scripting)
+# ============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ============================================================================
+# Documentation Generated Files
+# ============================================================================
+docs/build/
+docs/_build/
+site/
+doxygen/
+html/
+latex/
+
+# ============================================================================
+# Miscellaneous
+# ============================================================================
+.git-credentials
+.gitconfig
+*.orig
+*.patch
+*.diff
+*.rej
+.clang-format-backup
+compile_commands.json
+bear-output.json
+
+# Local development overrides
+local_config.cmake
+local_settings.ini
+.env
+.env.local
+
+# ============================================================================
+# Qt Creator Files
+# ============================================================================
+*.user
+*.user.*
+CMakeLists.txt.user*
+
+# ============================================================================
+# Workspace & Session Files
+# ============================================================================
+.session
+*.session
+Session.vim
+
+# ============================================================================
+# Archive & Compressed Files
+# ============================================================================
+*.tar
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.zip
+*.rar
+*.7z
+*.bz2
+*.xz
+*.gz
+
+# ============================================================================
+# Platform Specific
+# ============================================================================
+# Windows
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
+*.exe
+*.bat
+*.cmd
+
+# macOS
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.TemporaryItems
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+
+# Linux
+.directory
+.Trash-*
+.mount_*
+
+# ============================================================================
+# Continuous Integration & Build Artifacts
+# ============================================================================
+.github/workflows/logs/
+.gitlab-ci.yml.local
+.travis.yml.local
+appveyor.yml.local
+azure-pipelines.yml.local
+
+# ============================================================================
+# Lock Files (untuk dependency management)
+# ============================================================================
+package-lock.json
+yarn.lock
+Pipfile.lock
+poetry.lock
+go.sum
+
+# ============================================================================
+# Credentials & Secrets (IMPORTANT!)
+# ============================================================================
+.env
+.env.local
+.env.*.local
+secrets.json
+credentials.json
+private_key*
+*.pem
+*.key
+
+# ============================================================================
+# Remote Development
+# ============================================================================
+.vscode-server/
+.vscode-server-insiders/

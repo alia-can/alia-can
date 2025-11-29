@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.28)
 set(CMAKE_C_COMPILER clang)
 set(CMAKE_CXX_COMPILER clang++)
-project(alia-can VERSION 0.0.1-1 DESCRIPTION "AliaCan - Shell Alias Manager with Auto-Backup" LANGUAGES CXX)
+project(alia-can VERSION 0.0.1.1 DESCRIPTION "AliaCan - Shell Alias Manager with Auto-Backup" LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
